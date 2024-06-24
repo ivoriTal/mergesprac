@@ -1,0 +1,41 @@
+# Initialize repository
+mkdir git-merge-practice
+cd git-merge-practice
+git init
+
+# Initial commit
+echo "Initial content" > file.txt
+git add file.txt
+git commit -m "Initial commit"
+
+# Create and merge new-branch (fast forward)
+git checkout -b new-branch
+echo "Changes in new-branch" >> file.txt
+git add file.txt
+git commit -m "Add changes in new-branch"
+git checkout master
+git merge new-branch
+
+# Create merge conflict
+git checkout -b conflict-branch
+echo "Conflict changes in conflict-branch" >> file.txt
+git add file.txt
+git commit -m "Add conflicting changes in conflict-branch"
+git checkout master
+git checkout -b master-branch
+echo "Conflict changes in master-branch" >> file.txt
+git add file.txt
+git commit -m "Add conflicting changes in master-branch"
+
+# Merge conflict-branch into master (recursive merge)
+git checkout master
+git merge conflict-branch
+
+# Resolve conflict
+# Edit file.txt to resolve conflict
+git add file.txt
+git commit -m "Resolve merge conflict"
+
+# Merge master-branch into master
+git checkout master
+git merge master-branch
